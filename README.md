@@ -38,16 +38,41 @@ grunt.initConfig({
 ### Options
 
 #### options.path
-Type: `String`
+Type: `String`<br />
 Default value: `undefined`, (original path to file will be used if no value is specified)
 
 Path used in `<script src=PATH/file.js></script>` that are inserted to destination files (usually index.html), 
 
 #### options.placeholder
-Type: `String`, `Regexp`
+Type: `String`, `Regexp`<br />
 Default value: `<!-- ngsrc -->`
 
 A placeholder to put into your destination files (usally index.html)
+
+## Use case
+Lets say you have Angular.js application and grunt build process to perform concat and minify for your production build.
+Usually you have to add all the files you create in `index.html` manually like this:
+
+```html
+<!-- index.html snippet -->
+<script src="src\app\appModule.js"></script>
+<script src="src\app\common\commonModule.js"></script>
+<script src="src\app\componentA\componentA_Module.js"></script>
+<script src="src\app\componentA\componentA_controller.js"></script>
+<script src="src\app\componentA\componentA_service.js"></script>
+```
+
+This can be a pretty tedious task, easy to forget about and then you get those errors in browser's console too... 
+What if it would be enough to just add the new source file you your source folder and the 
+reference would be automatically inserted to specified `index.html` file in place of specified placeholder like this:
+
+```html
+<!-- ngsrc -->
+```
+
+> Don't forget to copy original `index.html` file to some new location (eg: tmp, build_dev, ...) to preserve
+original index.html file so that you preserve the placeholder for repeated builds
+
 
 ### Usage Examples
 
