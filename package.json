@@ -1,0 +1,39 @@
+{
+  "name": "ngsrc",
+  "version": "0.0.1",
+  "description": "Adds your angular.js source files to index.html automatically",
+  "homepage": "git://github.com/tomastrajan/grunt-ngsrc",
+  "repository": "git://github.com/tomastrajan/grunt-ngsrc.git",
+  "author": {
+    "name": "Tomas Trajan",
+    "email": "tomas.trajan@gmail.com",
+    "url": "http://www.medium.com/@tomastrajan"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "lodash": "^3.7.0",
+    "path": "^0.11.14",
+    "replace": "^0.3.0"
+  },
+  "devDependencies": {
+    "copy": "0.0.1",
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-nodeunit": "~0.3.0",
+    "jshint-stylish": "~0.1.5",
+    "load-grunt-tasks": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
