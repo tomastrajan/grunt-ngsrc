@@ -2,7 +2,7 @@
 
 > tl;dr Find and add your Angular.js source files into index.html automatically
 
-Find and add Angular.js files to index.html automatically and in correct order (also applicable for source files of any other framework). Great for development builds, inspired by [usemin](https://github.com/yeoman/grunt-usemin) which I eagerly recommended for handling of production builds.
+Find and add Angular.js files to index.html automatically and in correct order (also applicable for source files of any other framework). Great for development builds, inspired by [usemin](https://github.com/yeoman/grunt-usemin) which is strongly recommended for handling of production builds.
 
 ## Getting Started
 This plugin requires Grunt.
@@ -47,7 +47,7 @@ Path used in `<script src=PATH/file.js></script>` that are inserted to destinati
 Type: `String`, `Regexp`<br />
 Default value: `<!-- ngsrc -->`
 
-A placeholder to put into your destination files (usally index.html)
+A placeholder to put into your destination files (usually index.html)
 
 ## Use case
 Lets say you have Angular.js application and grunt build process to perform concat and minify for your production build.
@@ -63,8 +63,8 @@ Usually you have to add all the files you create in `index.html` manually like t
 ```
 
 This can be a pretty tedious task, easy to forget about and then you get those errors in browser's console too... 
-What if it would be enough to just add the new source file you your source folder and the 
-reference would be automatically inserted to specified `index.html` file in place of specified placeholder like this:
+What if it would be enough to just add the new source file to your source folder. Reference would then be automatically 
+inserted to specified `index.html` file in place of specified placeholder:
 
 ```html
 <!-- ngsrc -->
