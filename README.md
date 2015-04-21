@@ -77,7 +77,7 @@ If they are referenced in incorrect order there will be errors that you are refe
 ```js
   // Example of correct order of module & component definitions
 
-  // src/app/moduleA/moduleA_Module.js
+  // src/app/moduleA/moduleA_module.js
   angular.module('moduleA', ['moduleB'])
   
   // src/app/moduleA/moduleB/moduleB_module.js
@@ -90,7 +90,7 @@ If they are referenced in incorrect order there will be errors that you are refe
 
 ### Solution
 To make `ngsrc` work reliably, you have to use some naming convention for files that host your `module` definitions.
-In above example we specified 3 strings in `src` array of `ngsrc`
+In the example above we specified three `String`s in `src` array of `ngsrc`
 
   1. `'src/app/**/*module.js'`  - get every file that ends with `module.js`
   2. `'src/app/**/*.js'`        - get all javascript files, cool feature of grunt is that those files will not contain previously matched files (so `*module.js` files get referenced only once)
