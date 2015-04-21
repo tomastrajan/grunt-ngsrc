@@ -1,6 +1,8 @@
 # ngsrc
 
-> Adds your angular.js source files to index.html automatically
+> tl;dr Find and add your Angular.js source files into index.html automatically
+
+Find and add Angular.js files to index.html automatically and in correct order (also applicable for source files of any other framework). Great for development builds, inspired by [usemin](https://github.com/yeoman/grunt-usemin) which I eagerly recommended for handling of production builds.
 
 ## Getting Started
 This plugin requires Grunt.

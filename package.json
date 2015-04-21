@@ -1,7 +1,7 @@
 {
   "name": "ngsrc",
-  "version": "0.0.1",
-  "description": "Adds your angular.js source files to index.html automatically",
+  "version": "0.1.0",
+  "description": "Find and add Angular.js files to index.html automatically and in correct order (also applicable for source files of any other framework). Great for development builds, inspired by usemin which I eagerly recommended for handling of production builds.",
   "homepage": "git://github.com/tomastrajan/grunt-ngsrc",
   "repository": "git://github.com/tomastrajan/grunt-ngsrc.git",
   "author": {

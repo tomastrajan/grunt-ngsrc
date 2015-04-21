@@ -15,21 +15,24 @@ var _ = require('lodash'),
 
 module.exports = function(grunt) {
 
-    grunt.registerMultiTask('ngsrc', 'Adds your angular.js source files to index.html automatically', function () {
-        var options = this.options({
-            path: undefined,
-            placeholder: '<!-- ngsrc -->'
-        });
-        this.files.forEach(function(files) {
-            replace({
-                regex: options.placeholder,
-                replacement: getReplacement(files.src, options),
-                paths: getDestinations(files.dest),
-                recursive: true,
-                silent: true
+    grunt.registerMultiTask(
+        'ngsrc',
+        'Find and add Angular.js files to index.html automatically and in correct order (also applicable for source files of any other framework). Great for development builds, inspired by usemin which I eagerly recommended for handling of production builds.',
+        function () {
+            var options = this.options({
+                path: undefined,
+                placeholder: '<!-- ngsrc -->'
+            });
+            this.files.forEach(function(files) {
+                replace({
+                    regex: options.placeholder,
+                    replacement: getReplacement(files.src, options),
+                    paths: getDestinations(files.dest),
+                    recursive: true,
+                    silent: true
+                });
             });
         });
-    });
 
     function getReplacement(paths, options) {
         var result;
