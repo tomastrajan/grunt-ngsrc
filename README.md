@@ -37,9 +37,6 @@ grunt.initConfig({
 
 ### Options
 
-path: undefined,
-            placeholder: '<!-- ngsrc -->'
-
 #### options.path
 Type: `String`
 Default value: `undefined`, (original path to file will be used if no value is specified)
