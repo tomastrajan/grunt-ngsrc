@@ -28,12 +28,51 @@ In your project's Gruntfile, add a section named `ngsrc` to the data object pass
 grunt.initConfig({
     ngsrc: {
         target: {
-          src: [],
-          dest: []
+            src: ['src/app/**/*module.js', 'src/app/**/*.js', '!src/app/**/*.spec.js'],
+            dest: ['tmp/index.html']
         }
     },
 })
 ```
+
+### Target
+
+#### target.src
+Type: `String`, `Array`
+
+Angular.js source files to be injected as script tags into your `index.html`
+
+#### IMPORTANT - Ensure correct order of generated script tags for source files
+
+> In Angular.js we define modules with their dependencies (other Angular.js modules) and then we add controllers,
+services, directives (etc ...) to those existing modules. These modules and components are usually defined in their respective
+source files. Order of script tags referencing angular.js source files in index.html is important because of how angular's dependency injection works.
+If they are referenced in incorrect order there will be errors that you are referencing module which is not available.
+
+
+```js
+  // Example of correct order of module & component definitions
+
+  // src/app/moduleA/moduleA_Module.js
+  angular.module('moduleA', ['moduleB'])
+  
+  // src/app/moduleA/moduleB/moduleB_module.js
+  angular.module('moduleB', [])
+  
+  // src/app/moduleA/moduleB/moduleB_controller.js
+  angular.module('moduleB')
+      .controller('ModuleControllerB', function() { //... });
+```
+
+### Solution
+To make `ngsrc` work reliably, you have to use some naming convention for files that host your `module` definitions.
+In above example we specified 3 strings in `src` array of `ngsrc`
+
+  1. `'src/app/**/*module.js'`  - get every file that ends with `module.js`
+  2. `'src/app/**/*.js'`        - get all javascript files, cool feature of grunt is that those files will not contain previously matched files (so `*module.js` files get referenced only once)
+  3. `'!src/app/**/*.spec.js'`  - exclude all test files (we dont want to include test files in our `index.html` file)
+  
+This setup translates into index file where modules are included first followed by everything else hence correct order  
 
 ### Options
 
@@ -82,25 +121,24 @@ In this example, the default options.
 ```js
 grunt.initConfig({
     ngsrc: {
-        options: {},
-        src: [],
-        dest: []
+        src: ['src/app/**/*module.js', 'src/app/**/*.js', '!src/app/**/*.spec.js'],
+        dest: ['tmp/index.html']
     },
 })
 ```
 
 #### Custom Options
-In this example, custom options 
+In this example, custom options specify custom path that will be used in generated script tags and custom placeholder to put into index.html file.
 
 ```js
 grunt.initConfig({
     ngsrc: {
         options: {
-            path: 'path/to/files/'
-            placeholder: 'myCustomPlaceholder'
+            path: 'custom/path/to/be/used/in/generated/script/tag/'
+            placeholder: 'customPlaceholderToBeReplacedInDestFiles'
         },
-        src: [],
-        dest: []
+        src: ['src/app/**/*module.js', 'src/app/**/*.js', '!src/app/**/*.spec.js'],
+        dest: ['tmp/index.html']
     },
 })
 ```
@@ -109,7 +147,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+_(Nothing yet - work in progress)_
 
 ## License
 Copyright (c) 2015 Tomas Trajan. Licensed under the MIT license.
