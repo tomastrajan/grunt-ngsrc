@@ -24,27 +24,46 @@ module.exports = function(grunt) {
                 placeholder: '<!-- ngsrc -->'
             });
             this.files.forEach(function(files) {
-                replace({
-                    regex: options.placeholder,
-                    replacement: getReplacement(files.src, options),
-                    paths: getDestinations(files.dest),
-                    recursive: true,
-                    silent: true
-                });
+                var replacementPaths = getReplacementPaths(files.src, options),
+                    replacement = createTemplate(replacementPaths, options),
+                    destinations = getDestinations(files.dest);
+                if (destinations.length) {
+                    logVerbose(replacementPaths, destinations);
+                    grunt.log.write('Adding script tags into ' + destinations.length + ' destination ' + (destinations.length === 1 ? 'file' : 'files') + ' ');
+                    replace({
+                        regex: options.placeholder,
+                        replacement: replacement,
+                        paths: destinations,
+                        recursive: true,
+                        silent: true
+                    });
+                    grunt.log.ok();
+                } else {
+                    grunt.fail.warn('No destination file found');
+                }
             });
         });
 
-    function getReplacement(paths, options) {
-        var result;
+    function getReplacementPaths(paths, options) {
+        var replacementPaths = [];
         paths.forEach(function(p) {
             if (p && p.split && p.split('/').length) {
-                result = result ? result : '';
                 var origPathArray = p.split('/'),
                     origFileName = origPathArray[origPathArray.length - 1],
                     origPathToFile = origPathArray.splice(0, origPathArray.length - 1),
-                    pathToFile = options.path ? options.path : origPathToFile.join('/') + '/';
-                result += '<script src="' + path.normalize(pathToFile + origFileName) + '"></script>\n';
+                    pathToFile = options.path ? options.path : origPathToFile.join('/') + '/',
+                    replacementPath = pathToFile + origFileName;
+                    replacementPaths.push(path.normalize(replacementPath));
             }
+        });
+        return replacementPaths;
+    }
+    
+    function createTemplate(replacementPaths, options) {
+        var result;
+        replacementPaths.forEach(function(path) {
+            result = result ? result : '';
+            result += '<script src="' + path + '"></script>\n';
         });
         return result ? '\n' + result : options.placeholder;
     }
@@ -59,6 +78,19 @@ module.exports = function(grunt) {
             });
         }
         return destinations;
+    }
+    
+    function logVerbose(replacementPaths, destinations) {
+        replacementPaths.forEach(function (path) {
+            grunt.verbose.write('Src: ' + path + '...');
+            grunt.verbose.ok();
+        });
+        grunt.verbose.writeln();
+        destinations.forEach(function (path) {
+            grunt.verbose.write('Dest: ' + path + '...');
+            grunt.verbose.ok();
+        });
+        grunt.verbose.writeln();
     }
 
 };
