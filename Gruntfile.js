@@ -57,7 +57,8 @@ module.exports = function (grunt) {
                     path: 'path/to/files/after/build/process/',
                     placeholder: '<!-- my-custom-placeholder-regex -->'
                 },
-                src: ['tmp/full/src/**/*.Module.js', 'tmp/full/src/**/*.js', '!tmp/full/src/**/*.spec.js'],
+                cwd: 'tmp/full/src/',
+                src: ['**/*.Module.js', '**/*.js', '!**/*.spec.js'],
                 dest: ['tmp/full/**/*.html']
             },
             notFoundSrc: {

@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                 var origPathArray = p.split('/'),
                     origFileName = origPathArray[origPathArray.length - 1],
                     origPathToFile = origPathArray.splice(0, origPathArray.length - 1),
-                    pathToFile = options.path ? options.path : origPathToFile.join('/') + '/',
+                    pathToFile = options.path ? options.path + origPathToFile.join('/') + '/' : origPathToFile.join('/') + '/',
                     replacementPath = pathToFile + origFileName;
                     replacementPaths.push(path.normalize(replacementPath));
             }

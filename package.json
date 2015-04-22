@@ -10,7 +10,7 @@
     "url": "http://www.medium.com/@tomastrajan"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin", "replace", "placeholder", "angular", "source", "files", "ngsrc"
   ],
   "main": "Gruntfile.js",
   "engines": {
