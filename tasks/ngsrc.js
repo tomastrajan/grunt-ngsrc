@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         'Find and add Angular.js files to index.html automatically and in correct order (also applicable for source files of any other framework). Great for development builds, inspired by usemin which is strongly recommended for handling of production builds.',
         function () {
             var options = this.options({
-                moduleDiscriminator: 'Module',
+                moduleDiscriminator: 'module.js',
                 path: undefined,
                 placeholder: '<!-- ngsrc -->'
             });
