@@ -36,21 +36,11 @@ grunt.initConfig({
 ```
 
 ## Use case
-Lets say you have angular.js application and grunt build process to perform concat and minify for your production build.
-Usually you have to add all the files you create in `index.html` manually like this:
-
-```html
-<!-- index.html snippet -->
-<script src="src\app\appModule.js"></script>
-<script src="src\app\common\commonModule.js"></script>
-<script src="src\app\componentA\componentA_Module.js"></script>
-<script src="src\app\componentA\componentA_controller.js"></script>
-<script src="src\app\componentA\componentA_service.js"></script>
-```
-
-This can be a pretty tedious task, easy to forget about and then you get those errors in browser's console too... 
-What if it would be enough to just add the new file to your source folder and reference would be then automatically 
-inserted into specified `index.html` file in place of placeholder:
+Lets say you have angular.js application and grunt build process. Usually you have to add all `.js` files you create 
+in `index.html` manually. This can be a pretty tedious task. It's easy to forget to insert new file and then you get 
+those errors in browser's console too... What if it would be enough to just add the new file to your source folder 
+and reference would be then automatically (for example as part of `watch` task) inserted into specified `index.html` 
+files in place of placeholder:
 
 ```html
 <!-- ngsrc -->
@@ -66,12 +56,12 @@ Type: `String`, `Array`
 
 angular.js source files to be injected as script tags into your `index.html`
 
-#### IMPORTANT - Ensure correct order of generated script tags for source files
+#### IMPORTANT - Ensure correct order of generated script tags
 
 > In angular.js we define modules with their dependencies (other angular.js modules) and then we add controllers,
 services, directives (etc ...) to those existing modules. These modules and components are usually defined in their respective
-source files. Order of script tags referencing angular.js source files in index.html is important because of how angular's dependency injection works.
-If they are referenced in incorrect order there will be errors that you are referencing module which is not available.
+source files. Order of the script tags referencing angular.js source files in index.html is important because of angular's dependency injection mechanism.
+If they are referenced in incorrect order there will be errors that you are referencing module which is not yet available.
 
 
 ```js
@@ -93,11 +83,30 @@ To make `ngsrc` work reliably, you have to use some naming convention for files 
 In the example above we specified two `String`s in `src` array of `ngsrc`
 
   1. `'src/app/**/*.js'`        - get all javascript source files (modules and other)
-  2. `'!src/app/**/*.spec.js'`  - exclude all test files (we dont want to include test files in our `index.html` file)
+  2. `'!src/app/**/*.spec.js'`  - exclude all test files (we don't want to include test files in our `index.html` file)
   
-If you all files containing `module` definition follows convention ( by default `*module.js` ) then those
-files will be inserted first and also ordered by _depth of their path_ (number of folders in path) which gives you reliable
-and predictable way for modeling of your dependency tree.
+All files containing `angular.module('someModule', []);` definitions which follow specified convention 
+( by default `*module.js` eg: `some.module.js` or `someAwesome_module.js`, ... ) will be inserted as first, 
+followed by other files. All the files will be then ordered by _depth of their path_ (number of folders in their path) 
+which gives you reliable and predictable way for modeling of your dependency tree.
+
+Example of generated index.html
+
+```html
+<!-- modules are specified as first, ordered by _depth of their path_ -->
+<script src="tmp/basic/src/app/app.module.js"></script>
+<script src="tmp/basic/src/app/common/common.module.js"></script>
+<script src="tmp/basic/src/app/componentA/componentA.module.js"></script>
+<script src="tmp/basic/src/app/componentB/componentB.module.js"></script>
+<script src="tmp/basic/src/app/componentA/subcomponentC/subcomponentC.module.js"></script>
+
+<!-- other source files are specified as second also ordered by _depth of their path_ -->
+<script src="tmp/basic/src/app/componentA/componentA.controller.js"></script>
+<script src="tmp/basic/src/app/componentA/componentA.service.js"></script>
+<script src="tmp/basic/src/app/componentB/componentB.controller.js"></script>
+<script src="tmp/basic/src/app/common/service/service.js"></script>
+<script src="tmp/basic/src/app/componentA/subcomponentC/subcomponentC.directive.js"></script>
+```
 
 ### Options
 
