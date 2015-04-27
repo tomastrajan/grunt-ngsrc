@@ -28,20 +28,24 @@ module.exports = function(grunt) {
                 var replacementPaths = getReplacementPaths(getSortedPaths(files.src)),
                     replacement = createTemplate(replacementPaths),
                     destinations = getDestinations(files.dest);
-                if (destinations.length) {
-                    logVerbose(replacementPaths, destinations);
-                    grunt.log.write('Adding script tags into ' + destinations.length + ' destination ' + (destinations.length === 1 ? 'file' : 'files') + ' ');
-                    replace({
-                        regex: options.placeholder,
-                        replacement: replacement,
-                        paths: destinations,
-                        recursive: true,
-                        silent: true
-                    });
-                    grunt.log.ok();
-                } else {
-                    grunt.fail.warn('No destination file found');
+                if (!destinations.length) {
+                    grunt.log.writeln('No destination files found');
+                    return;
                 }
+                if (!replacementPaths.length) {
+                    grunt.log.writeln('No src files found');
+                    return;
+                }
+                logVerbose(replacementPaths, destinations);
+                grunt.log.write('Adding ' + replacementPaths.length + ' script tags into ' + destinations.length + ' destination ' + (destinations.length === 1 ? 'file' : 'files') + ' ');
+                replace({
+                    regex: options.placeholder,
+                    replacement: replacement,
+                    paths: destinations,
+                    recursive: true,
+                    silent: true
+                });
+                grunt.log.ok();
             });
 
             function getSortedPaths(paths) {
