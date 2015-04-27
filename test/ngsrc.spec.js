@@ -1,7 +1,6 @@
 'use strict';
 
-var grunt = require('grunt'),
-	normalize = grunt.util.normalizelf;
+var grunt = require('grunt');
 
 /*
  ======== A Handy Little Nodeunit Reference ========
@@ -23,10 +22,43 @@ var grunt = require('grunt'),
  test.ifError(value)
  */
 
+var REGEX_NEW_LINE = /(?:\\[rn]|[\r\n]+)+/g;
+
 exports.ngsrc = {
-	setUp: function (done) {
-		// setup here if necessary
-		done();
-	}
-    // TODO test content of index files
+    setUp: function (done) {
+        done();
+    },
+    basic: function(test){
+        var content = grunt.file.read('tmp/basic/src/index.html', {encoding: 'utf8'}),
+            lines = content.split(REGEX_NEW_LINE);
+        test.equal(lines[8], '<script src="tmp/basic/src/app/app.module.js"></script>');
+        test.equal(lines[12], '<script src="tmp/basic/src/app/componentA/subcomponentC/subcomponentC.module.js"></script>');
+        test.equal(lines[13], '<script src="tmp/basic/src/app/componentA/componentA.controller.js"></script>');
+        test.done();
+    },
+    full: function(test){
+        var content = grunt.file.read('tmp/full/src/index.html', {encoding: 'utf8'}),
+            lines = content.split(REGEX_NEW_LINE);
+        test.equal(lines[9], '<script src="path/to/files/after/build/process/app/app.module.js"></script>');
+        test.equal(lines[13], '<script src="path/to/files/after/build/process/app/componentA/subcomponentC/subcomponentC.module.js"></script>');
+        test.equal(lines[14], '<script src="path/to/files/after/build/process/app/componentA/componentA.controller.js"></script>');
+        test.done();
+    },
+    notFoundSrc: function(test){
+        var content = grunt.file.read('tmp/notFoundDest/src/index.html', {encoding: 'utf8'}),
+            lines = content.split(REGEX_NEW_LINE);
+        test.equal(lines.length, 13);
+        test.equal(lines[7], '    <!-- ngsrc -->');
+        test.equal(lines[8], '    <!-- my-custom-placeholder-regex -->');
+        test.done();
+    },
+    notFoundDest: function(test){
+        var content = grunt.file.read('tmp/notFoundSrc/src/index.html', {encoding: 'utf8'}),
+            lines = content.split(REGEX_NEW_LINE);
+        test.equal(lines.length, 13);
+        test.equal(lines[7], '    <!-- ngsrc -->');
+        test.equal(lines[8], '    <!-- my-custom-placeholder-regex -->');
+        test.done();
+    }
+
 };

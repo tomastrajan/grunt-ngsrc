@@ -49,25 +49,26 @@ module.exports = function (grunt) {
         ngsrc: {
 
             basic: {
-                src: ['tmp/basic/src/**/*Module.js', 'tmp/basic/src/**/*.js', '!tmp/basic/src/**/*.spec.js'],
+                src: ['tmp/basic/src/**/*.js', '!tmp/basic/src/**/*.spec.js'],
                 dest: ['tmp/basic/**/*.html']
             },
             full: {
                 options: {
+                    moduleDiscriminator: '.module.js',
                     path: 'path/to/files/after/build/process/',
                     placeholder: '<!-- my-custom-placeholder-regex -->'
                 },
                 cwd: 'tmp/full/src/',
-                src: ['**/*.Module.js', '**/*.js', '!**/*.spec.js'],
+                src: ['**/*.js', '!**/*.spec.js'],
                 dest: ['tmp/full/**/*.html']
             },
             notFoundSrc: {
-                src: ['bad/path/**/*Module.js', 'bad/path/**/*.js', '!bad/path/**/*.spec.js'],
-                dest: ['tmp/notfound/**/*.html']
+                src: ['bad/path/**/*.js', '!bad/path/**/*.spec.js'],
+                dest: ['tmp/notFoundSrc/**/*.html']
             },
             notFoundDest: {
-                src: ['tmp/notFoundDest/**/*Module.js', 'tmp/notFoundDest/**/*.js', '!tmp/notFoundDest/**/*.spec.js'],
-                dest: ['bad/path/**/*.html']
+                src: ['tmp/notFoundDest/**/*.js', '!tmp/notFoundDest/**/*.spec.js'],
+                dest: ['temp/path/**/*.html']
             }
         },
 
