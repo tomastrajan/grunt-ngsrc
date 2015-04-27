@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                 }
 
                 function hasDepth(path) {
-                    return path && path.split && path.split('/').length
+                    return path && path.split && path.split('/').length;
                 }
 
                 function getDepth(path) {
@@ -106,10 +106,8 @@ module.exports = function(grunt) {
             function createTemplate(replacementPaths) {
                 var result;
                 replacementPaths.forEach(function(path, index) {
-                    result = result ? result : '';
-                    var offset = index === 0 ? '' : '        ',
-                        newline = index === replacementPaths.length - 1 ? '' : '\n';
-                    result += (offset + '<script src="' + path + '"></script>' + newline);
+                    result = result ? result : '\n';
+                    result += ('<script src="' + path + '"></script>\n');
                 });
                 result = result ? result : options.placeholder;
                 return grunt.util.normalizelf(result);
