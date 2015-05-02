@@ -1,4 +1,4 @@
-# grunt-ngsrc [![Build Status](https://travis-ci.org/tomastrajan/grunt-ngsrc.svg?branch=master)](https://travis-ci.org/tomastrajan/grunt-ngsrc)
+# grunt-ngsrc [![Build Status](https://travis-ci.org/tomastrajan/grunt-ngsrc.svg?branch=master)](https://travis-ci.org/tomastrajan/grunt-ngsrc) [![Coverage Status](https://coveralls.io/repos/tomastrajan/grunt-ngsrc/badge.svg)](https://coveralls.io/r/tomastrajan/grunt-ngsrc)
 
 > Find and add your angular.js source files into index.html automatically
 
