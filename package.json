@@ -10,7 +10,13 @@
     "url": "http://www.medium.com/@tomastrajan"
   },
   "keywords": [
-    "gruntplugin", "replace", "placeholder", "angular", "source", "files", "ngsrc"
+    "gruntplugin",
+    "replace",
+    "placeholder",
+    "angular",
+    "source",
+    "files",
+    "ngsrc"
   ],
   "main": "Gruntfile.js",
   "engines": {
@@ -30,6 +36,7 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-nodeunit": "~0.3.0",
+    "grunt-jscs": "^1.8.0",
     "jshint-stylish": "~0.1.5",
     "load-grunt-tasks": "~0.3.0"
   },
