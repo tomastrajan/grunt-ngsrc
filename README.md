@@ -16,7 +16,7 @@ npm install grunt-ngsrc --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('ngsrc');
+grunt.loadNpmTasks('grunt-ngsrc');
 ```
 
 ## The "ngsrc" task
